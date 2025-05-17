@@ -1,4 +1,4 @@
-# Sonic Echo - Local Audio Recording App
+# React_WebRecord - Local Audio Recording App
 
 A modern web application for recording, storing, and sharing audio recordings locally using IndexedDB.
 
