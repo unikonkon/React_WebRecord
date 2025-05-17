@@ -10,12 +10,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 import { saveAudio } from "@/services/audioService";
 import Header from "@/components/Header";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
 } from "@/components/ui/dialog";
 
 const Record = () => {
@@ -23,7 +23,7 @@ const Record = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
   const navigate = useNavigate();
-  
+
   // Recording state
   const {
     isRecording,
@@ -37,7 +37,7 @@ const Record = () => {
     audioUrl,
     formattedTime,
   } = useAudioRecorder();
-  
+
   // UI state
   const [isSaving, setIsSaving] = useState(false);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
@@ -72,12 +72,12 @@ const Record = () => {
   // Handle saving the recording
   const handleSaveRecording = async () => {
     if (!audioBlob || !currentUser) return;
-    
+
     try {
       setIsSaving(true);
-      
+
       const name = recordingName.trim() || `Recording ${new Date().toLocaleString()}`;
-      
+
       await saveAudio({
         userId: currentUser.uid,
         name,
@@ -87,12 +87,12 @@ const Record = () => {
         format: audioBlob.type,
         deviceInfo: navigator.userAgent,
       });
-      
+
       toast({
         title: t("success"),
         description: "Recording saved successfully",
       });
-      
+
       // Navigate to dashboard
       navigate("/dashboard");
     } catch (error: any) {
@@ -117,21 +117,21 @@ const Record = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1 container py-8">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-3xl font-bold tracking-tight mb-8">{t("newRecording")}</h1>
-          
+
           <div className="bg-muted/30 border rounded-lg p-8 flex flex-col items-center justify-center space-y-8">
             {/* Recording Time Display */}
             <div className="text-6xl font-mono font-bold">{formattedTime}</div>
-            
+
             {/* Waveform Visualization */}
             <div className="flex gap-1 items-center justify-center h-20 w-full">
               {isRecording && (
                 Array(20).fill(0).map((_, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`w-2 bg-primary rounded-full animate-waveform-${(i % 5) + 1}`}
                     style={{
                       height: `${10 + Math.random() * 90}%`,
@@ -140,37 +140,37 @@ const Record = () => {
                   ></div>
                 ))
               )}
-              
+
               {!isRecording && audioUrl && (
-                <audio 
-                  src={audioUrl} 
-                  controls 
-                  className="w-full h-12" 
+                <audio
+                  src={audioUrl}
+                  controls
+                  className="w-full h-12"
                 />
               )}
-              
+
               {!isRecording && !audioUrl && (
                 <div className="text-muted-foreground">
                   {t("startRecording")} to see waveform
                 </div>
               )}
             </div>
-            
+
             {/* Recording Controls */}
             <div className="flex justify-center items-center space-x-4">
               {!isRecording && !audioUrl && (
-                <Button 
-                  onClick={handleStartRecording} 
+                <Button
+                  onClick={handleStartRecording}
                   className="size-16 rounded-full flex items-center justify-center"
                 >
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="size-6"
                   >
                     <circle cx="12" cy="12" r="10" />
@@ -178,42 +178,42 @@ const Record = () => {
                   </svg>
                 </Button>
               )}
-              
+
               {isRecording && (
                 <>
                   {isPaused ? (
-                    <Button 
-                      onClick={resumeRecording} 
-                      variant="outline" 
+                    <Button
+                      onClick={resumeRecording}
+                      variant="outline"
                       className="size-12 rounded-full flex items-center justify-center"
                     >
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="size-5"
                       >
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                     </Button>
                   ) : (
-                    <Button 
-                      onClick={pauseRecording} 
-                      variant="outline" 
+                    <Button
+                      onClick={pauseRecording}
+                      variant="outline"
                       className="size-12 rounded-full flex items-center justify-center"
                     >
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="size-5"
                       >
                         <rect x="6" y="4" width="4" height="16" />
@@ -221,39 +221,39 @@ const Record = () => {
                       </svg>
                     </Button>
                   )}
-                  
-                  <Button 
-                    onClick={handleStopRecording} 
-                    variant="destructive" 
+
+                  <Button
+                    onClick={handleStopRecording}
+                    variant="destructive"
                     className="size-16 rounded-full flex items-center justify-center"
                   >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="size-6"
                     >
                       <rect x="6" y="6" width="12" height="12" />
                     </svg>
                   </Button>
-                  
-                  <Button 
-                    onClick={cancelRecording} 
-                    variant="outline" 
+
+                  <Button
+                    onClick={cancelRecording}
+                    variant="outline"
                     className="size-12 rounded-full flex items-center justify-center"
                   >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="size-5"
                     >
                       <path d="M18 6L6 18" />
@@ -262,21 +262,21 @@ const Record = () => {
                   </Button>
                 </>
               )}
-              
+
               {!isRecording && audioUrl && (
                 <>
-                  <Button 
+                  <Button
                     onClick={() => setShowSaveDialog(true)}
                     className="size-16 rounded-full flex items-center justify-center"
                   >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="size-6"
                     >
                       <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
@@ -284,20 +284,20 @@ const Record = () => {
                       <polyline points="7 3 7 8 15 8" />
                     </svg>
                   </Button>
-                  
-                  <Button 
-                    onClick={handleDiscardRecording} 
-                    variant="outline" 
+
+                  <Button
+                    onClick={handleDiscardRecording}
+                    variant="outline"
                     className="size-12 rounded-full flex items-center justify-center"
                   >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="size-5"
                     >
                       <path d="M3 6h18" />
@@ -315,9 +315,12 @@ const Record = () => {
             {isRecording && (
               <div className="flex items-center space-x-2 text-sm">
                 <span className={`inline-block size-3 rounded-full bg-red-500 ${isPaused ? '' : 'animate-pulse-recording'}`} />
-                <span>{isPaused ? t("pauseRecording") : t("recordingName")}</span>
+                <span className={isPaused ? '' : 'text-green-500'}>
+                  {isPaused ? t("pauseRecording") : t("recordingName")}
+                </span>
               </div>
             )}
+
           </div>
 
           {/* Tips Section */}
@@ -340,7 +343,7 @@ const Record = () => {
           <DialogHeader>
             <DialogTitle>{t("saveRecording")}</DialogTitle>
           </DialogHeader>
-          
+
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium">
@@ -353,7 +356,7 @@ const Record = () => {
                 placeholder="My Recording"
               />
             </div>
-            
+
             <div className="space-y-2">
               <label htmlFor="description" className="text-sm font-medium">
                 {t("recordingDescription")}
@@ -366,7 +369,7 @@ const Record = () => {
                 rows={3}
               />
             </div>
-            
+
             {audioUrl && (
               <div className="space-y-2">
                 <label className="text-sm font-medium">Preview</label>
@@ -374,7 +377,7 @@ const Record = () => {
               </div>
             )}
           </div>
-          
+
           <DialogFooter>
             <Button
               variant="outline"

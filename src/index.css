@@ -5,70 +5,71 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 98%;          /* Very light icy blue */
+    --foreground: 210 15% 30%;          /* Dark slate blue */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 210 15% 90%;                /* Light grayish blue */
+    --card-foreground: 210 15% 30%;     /* Dark slate blue */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 210 15% 85%;             /* Slightly darker light blue */
+    --popover-foreground: 210 15% 30%;  /* Dark slate blue */
 
-    --primary: 255 92% 76%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 70% 55%;             /* Bright blue */
+    --primary-foreground: 210 100% 98%; /* Almost white */
 
-    --secondary: 199 89% 60%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 195 60% 50%;           /* Cyan */
+    --secondary-foreground: 210 15% 30%;/* Dark slate blue */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 15% 70%;               /* Muted pale blue */
+    --muted-foreground: 210 15% 30%;   /* Dark slate blue */
 
-    --accent: 173 58% 39%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 180 80% 40%;              /* Teal */
+    --accent-foreground: 210 100% 98%; /* Almost white */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 80% 60%;           /* Bright red */
+    --destructive-foreground: 210 100% 98%; /* Almost white */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 255 92% 76%;
+    --border: 210 20% 80%;              /* Light gray-blue */
+    --input: 210 20% 80%;               /* Light gray-blue */
+    --ring: 210 70% 55%;                /* Bright blue */
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 15% 15%;          /* Dark navy blue */
+    --foreground: 210 30% 90%;          /* Light icy blue */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 20% 25%;                /* Dark slate */
+    --card-foreground: 210 30% 90%;     /* Light icy blue */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 20% 30%;             /* Slightly lighter dark slate */
+    --popover-foreground: 210 30% 90%;  /* Light icy blue */
 
-    --primary: 255 92% 76%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 70% 55%;             /* Bright blue */
+    --primary-foreground: 210 100% 98%; /* Almost white */
 
-    --secondary: 199 89% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 195 60% 50%;           /* Cyan */
+    --secondary-foreground: 210 30% 90%;/* Light icy blue */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 30% 45%;               /* Medium slate */
+    --muted-foreground: 210 30% 90%;   /* Light icy blue */
 
-    --accent: 173 58% 39%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 180 80% 40%;              /* Teal */
+    --accent-foreground: 210 100% 98%; /* Almost white */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 80% 60%;           /* Bright red */
+    --destructive-foreground: 210 100% 98%; /* Almost white */
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 255 92% 76%;
+    --border: 210 20% 45%;              /* Medium dark slate */
+    --input: 210 20% 45%;               /* Medium dark slate */
+    --ring: 210 70% 55%;                /* Bright blue */
   }
 }
 
 @layer base {
   * {
+    /* ใช้ border 1px และสีจากตัวแปร */
     @apply border-border;
   }
 

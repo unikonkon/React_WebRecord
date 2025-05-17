@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
@@ -18,6 +18,7 @@ import {
 const Header = () => {
   const { currentUser, logout } = useAuth();
   const { t, language, setLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -64,6 +65,10 @@ const Header = () => {
 
           <Button variant="ghost" size="sm" onClick={toggleLanguage}>
             {language === "en" ? "🇹🇭" : "🇬🇧"}
+          </Button>
+
+          <Button variant="ghost" size="sm" onClick={toggleTheme}>
+            {theme === "dark" ? "☀️" : "🌙"}
           </Button>
 
           {currentUser ? (
@@ -157,6 +162,9 @@ const Header = () => {
                     <Button variant="ghost" size="sm" onClick={toggleLanguage} className="justify-start px-0">
                       {language === "en" ? "🇹🇭 Change to Thai" : "🇬🇧 Change to English"}
                     </Button>
+                    <Button variant="ghost" size="sm" onClick={toggleTheme} className="justify-start px-0">
+                      {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                    </Button>
                     <Button 
                       variant="ghost" 
                       onClick={() => {
@@ -172,6 +180,9 @@ const Header = () => {
                   <>
                     <Button variant="ghost" size="sm" onClick={toggleLanguage} className="justify-start px-0">
                       {language === "en" ? "🇹🇭 Change to Thai" : "🇬🇧 Change to English"}
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={toggleTheme} className="justify-start px-0">
+                      {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
                     </Button>
                     <Button 
                       asChild 

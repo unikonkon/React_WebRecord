@@ -17,6 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,6 +31,7 @@ type FormData = z.infer<typeof formSchema>;
 const Login = () => {
   const { login, googleSignIn } = useAuth();
   const { t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -91,7 +93,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-xl shadow-lg dark:bg-gray-800">
+      <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-lg">
         <div className="flex flex-col items-center space-y-2 text-center">
           <h1 className="text-2xl font-bold">{t("signIn")}</h1>
           <p className="text-muted-foreground">Enter your credentials to access your account</p>
@@ -141,7 +143,7 @@ const Login = () => {
             <span className="w-full border-t"></span>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
+            <span className="bg-card px-2 text-muted-foreground">
               {t("signIn")} with
             </span>
           </div>
@@ -176,6 +178,12 @@ const Login = () => {
           <Link to="/register" className="text-primary hover:underline">
             {t("signUp")}
           </Link>
+        </div>
+
+        <div className="mt-4 flex justify-center">
+          <Button variant="ghost" size="sm" onClick={toggleTheme}>
+            {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+          </Button>
         </div>
       </div>
     </div>
