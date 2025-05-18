@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchRecordings = async () => {
-      if (currentUser) {
+      if (currentUser && currentUser.uid) {
         try {
           setIsLoading(true);
           const userAudios = await getUserAudios(currentUser.uid);
