@@ -8,7 +8,8 @@ import {
   generateShareableUrl as generateIndexedDBShareableUrl,
   saveTranscription as saveIndexedDBTranscription,
   createBlobUrl,
-  AudioRecord
+  AudioRecord,
+  deleteAllUserAudios as deleteAllUserIndexedDBAudios
 } from "@/lib/indexedDBService";
 
 export type AudioMetadata = Omit<AudioRecord, 'fileBlob'>;
@@ -160,4 +161,9 @@ export const generateShareableUrl = async (id: string, expirationDays?: number):
 // Upload transcription for an audio
 export const saveTranscription = async (id: string, transcription: string): Promise<void> => {
   await saveIndexedDBTranscription(id, transcription);
+};
+
+// Delete all audios for a user
+export const deleteAllUserAudios = async (userId: string): Promise<void> => {
+  await deleteAllUserIndexedDBAudios(userId);
 };

@@ -572,12 +572,12 @@ const AudioDetail = () => {
                       >
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       </svg>
-                      Transcribe
+                      {t("transcribe")}
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Transcribe Audio</DialogTitle>
+                      <DialogTitle>{t("transcribeAudio")}</DialogTitle>
                     </DialogHeader>
                     
                     <div className="py-4">
@@ -591,14 +591,14 @@ const AudioDetail = () => {
                       ) : (
                         <>
                           <p className="mb-4">
-                            Generate a text transcription of this audio recording.
+                           ใส่รายละเอียดของคีย์ API
                           </p>
                           <Button
                             onClick={handleTranscribe}
                             disabled={isTranscribing}
                             className="w-full"
                           >
-                            {isTranscribing ? t("loading") : "Generate Transcription"}
+                            {isTranscribing ? t("loading") : t("generateTranscription")}
                           </Button>
                         </>
                       )}
@@ -612,7 +612,7 @@ const AudioDetail = () => {
           {/* Audio Details */}
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-card rounded-lg p-6 shadow-sm">
-              <h2 className="text-lg font-medium mb-4">Audio Details</h2>
+              <h2 className="text-lg font-medium mb-4">{t("audioDetails")}</h2>
               
               <dl className="space-y-2">
                 <div className="flex justify-between">
@@ -647,7 +647,7 @@ const AudioDetail = () => {
             </div>
             
             <div className="bg-card rounded-lg p-6 shadow-sm">
-              <h2 className="text-lg font-medium mb-4">Device Info</h2>
+              <h2 className="text-lg font-medium mb-4">{t("deviceInfo")}</h2>
               
               <p className="text-muted-foreground text-sm break-all">
                 {audio.deviceInfo || "No device info available"}

@@ -1,18 +1,31 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { getUserAudios, AudioMetadata } from "@/services/audioService";
+import { getUserAudios, AudioMetadata, deleteAllUserAudios } from "@/services/audioService";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
   const { t } = useLanguage();
+  const { toast } = useToast();
   const [recordings, setRecordings] = useState<AudioMetadata[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeletingAll, setIsDeletingAll] = useState(false);
   const [stats, setStats] = useState({
     totalCount: 0,
     totalDuration: 0,
@@ -44,6 +57,38 @@ const Dashboard = () => {
 
     fetchRecordings();
   }, [currentUser]);
+
+  // Handle deleting all recordings
+  const handleDeleteAllRecordings = async () => {
+    if (!currentUser || !currentUser.uid) {
+      toast({
+        title: t("error"),
+        description: "User not authenticated.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsDeletingAll(true);
+    try {
+      await deleteAllUserAudios(currentUser.uid);
+      setRecordings([]); // Clear recordings from state
+      setStats({ totalCount: 0, totalDuration: 0 }); // Reset stats
+      toast({
+        title: t("success"),
+        description: "All your recordings have been deleted.",
+      });
+    } catch (error) {
+      console.error("Error deleting all recordings:", error);
+      toast({
+        title: t("error"),
+        description: "Failed to delete all recordings. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeletingAll(false);
+    }
+  };
 
   // Format duration from seconds to MM:SS
   const formatDuration = (seconds: number): string => {
@@ -113,6 +158,50 @@ const Dashboard = () => {
                 {t("uploadAudio")}
               </Link>
             </Button>
+
+            {recordings.length > 0 && (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" disabled={isDeletingAll || isLoading}>
+                    <svg
+                      className="mr-2 size-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                      <line x1="10" y1="11" x2="10" y2="17" />
+                      <line x1="14" y1="11" x2="14" y2="17" />
+                    </svg>
+                    {isDeletingAll ? t("loading") : t("deleteAllRecordings")}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t("areYouAbsolutelySure")}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t("deleteAllRecordingsDescription")} ({stats.totalCount} {t("recordings")})
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleDeleteAllRecordings}
+                      disabled={isDeletingAll}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      {isDeletingAll ? t("loading") : t("yesDeleteAll")}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
           </div>
         </div>
 

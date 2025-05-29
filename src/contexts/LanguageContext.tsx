@@ -39,7 +39,7 @@ const translations = {
     en: "Sign In with Google",
     th: "เข้าสู่ระบบด้วย Google",
   },
-  
+
   // Dashboard
   dashboard: {
     en: "Dashboard",
@@ -69,7 +69,43 @@ const translations = {
     en: "Upload Audio",
     th: "อัปโหลดเสียง",
   },
-  
+  recordingTips: {
+    en: "Recording Tips",
+    th: "คำแนะนำการบันทึก",
+  },
+  recordingTips1: {
+    en: "Speak clearly and at a consistent pace",
+    th: "พูดชัดเจนและอย่างสม่ำเสมอ",
+  },
+  recordingTips2: {
+    en: "Find a quiet location without background noise",
+    th: "หาสถานที่ที่สงบไม่มีเสียงรบกวน",
+  },
+  recordingTips3: {
+    en: "Keep your device's microphone about 6-12 inches from your mouth",
+    th: "ระยะห่างระหว่างอุปกรณ์กับปากคุณประมาณ 6-12 นิ้ว",
+  },
+  recordingTips4: {
+    en: "Avoid touching or moving your device while recording",
+    th: "หลีกเลี่ยงการสัมผัสหรือการเคลื่อนที่ของอุปกรณ์ขณะการบันทึก",
+  },
+  recordingTips5: {
+    en: "Do a short test recording first to check audio quality",
+    th: "ทำการบันทึกทดสอบสั้นๆ ก่อนเพื่อตรวจสอบคุณภาพเสียง",
+  },
+  areYouAbsolutelySure: {
+    en: "Are you absolutely sure?",
+    th: "คุณต้องการลบทั้งหมดหรือไม่?",
+  },
+  deleteAllRecordingsDescription: {
+    en: "This action cannot be undone. This will permanently delete all your files.",
+    th: "การดำเนินการนี้ไม่สามารถยกเลิกได้ การดำเนินการนี้จะลบไฟล์ทั้งหมดอย่างถาวร",
+  },
+  recordings: {
+    en: "recordings",
+    th: "ไฟล์",
+  },
+
   // Recording
   startRecording: {
     en: "Start Recording",
@@ -103,7 +139,7 @@ const translations = {
     en: "Description (optional)",
     th: "คำอธิบาย (ไม่จำเป็น)",
   },
-  
+
   // Audio Details
   audioDetails: {
     en: "Audio Details",
@@ -141,7 +177,7 @@ const translations = {
     en: "Share",
     th: "แชร์",
   },
-  
+
   // User Profile
   userProfile: {
     en: "User Profile",
@@ -163,7 +199,7 @@ const translations = {
     en: "Profile Picture",
     th: "รูปโปรไฟล์",
   },
-  
+
   // Settings
   settings: {
     en: "Settings",
@@ -189,7 +225,7 @@ const translations = {
     en: "Thai",
     th: "ไทย",
   },
-  
+
   // Misc
   loading: {
     en: "Loading...",
@@ -219,6 +255,71 @@ const translations = {
     en: "Logout",
     th: "ออกจากระบบ",
   },
+  deleteAllRecordings: {
+    en: "Delete All Recordings",
+    th: "ลบไฟล์ทั้งหมด",
+  },
+  yesDeleteAll: {
+    en: "Yes, delete all",
+    th: "ใช่, ลบทั้งหมด",
+  },
+  generateTranscription: {
+    en: "Generate Transcription",
+    th: "ถอดความเสียง",
+  },
+
+
+  // Audio Detail
+  audioNotFound: {
+    en: "Audio not found",
+    th: "ไม่พบเสียง",
+  },
+  audioDetailsUpdated: {
+    en: "Audio details updated",
+    th: "อัปเดตรายละเอียดเสียง",
+  },
+  audioDetailsUpdatedSuccess: {
+    en: "Audio details updated successfully",
+    th: "อัปเดตรายละเอียดเสียงสำเร็จ",
+  },
+  audioDetailsUpdatedError: {
+    en: "Failed to update audio details",
+    th: "ล้มเหลวการอัปเดตรายละเอียดเสียง",
+  },
+  audioDeleted: {
+    en: "Audio deleted",
+    th: "ลบเสียง",
+  },
+  // Transcribe
+  transcribe: {
+    en: "Transcribe",
+    th: "ถอดความ",
+  },
+  transcribeAudio: {
+    en: "Transcribe Audio",
+    th: "ถอดความเสียง",
+  },
+  transcribeButton: {
+    en: "Generate Transcription",
+    th: "ถอดความเสียง",
+  },
+  transcribeError: {
+    en: "Please enter your API Key to proceed with transcription.",
+    th: "กรุณาป้อนคีย์ API เพื่อดำเนินการถอดรหัสเสียง",
+  },
+  transcribeQuotaExceeded: {
+    en: "You have exceeded the API quota. Please wait 24 hours or use a new API key with remaining credits.",
+    th: "คุณใช้ API เกินโควตาแล้ว กรุณารอ 24 ชั่วโมง หรือใช้ API Key ใหม่ที่มีเครดิตเหลืออยู่",
+  },
+  transcribeSuccess: {
+    en: "Transcription generated successfully",
+    th: "ถอดรหัสเสียงสำเร็จ",
+  },
+  transcribeErrorBodyText: {
+    en: "No additional error information from API.",
+    th: "ไม่มีข้อมูลข้อผิดพลาดเพิ่มเติมจาก API",
+  },
+
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
@@ -235,34 +336,34 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguageState] = useState<Language>(() => {
     // Try to get the language from localStorage
     const savedLanguage = localStorage.getItem("language") as Language;
-    
+
     // If no saved language, try to detect browser language
     if (!savedLanguage) {
       const browserLang = navigator.language.split("-")[0];
       return browserLang === "th" ? "th" : "en";
     }
-    
+
     return savedLanguage || "en";
   });
-  
+
   // Update localStorage when language changes
   useEffect(() => {
     localStorage.setItem("language", language);
   }, [language]);
-  
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
   };
-  
+
   const t = (key: keyof typeof translations) => {
     return translations[key]?.[language] || key;
   };
-  
+
   const value = {
     language,
     setLanguage,
     t,
   };
-  
+
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };

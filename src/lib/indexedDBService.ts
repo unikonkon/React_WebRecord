@@ -175,5 +175,26 @@ export const saveTranscription = async (id: string, transcription: string): Prom
   await updateAudio(id, { transcription });
 };
 
+// Delete all audios for a user
+export const deleteAllUserAudios = async (userId: string): Promise<void> => {
+  const db = await initDB();
+  const tx = db.transaction(AUDIO_STORE, 'readwrite');
+  const store = tx.store;
+  const index = store.index('userId');
+  let cursor = await index.openCursor(userId);
+
+  while (cursor) {
+    // Revoke the Blob URL to free memory if it exists and is a blob URL
+    if (cursor.value.fileUrl && cursor.value.fileUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(cursor.value.fileUrl);
+    }
+    // Delete the record by its primary key (which is 'id' in this case, pointed to by cursor.primaryKey)
+    await store.delete(cursor.primaryKey);
+    cursor = await cursor.continue();
+  }
+
+  await tx.done; // Ensure the transaction is completed
+};
+
 // Initialize DB when the module loads
 initDB().catch(console.error); 

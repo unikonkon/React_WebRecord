@@ -325,13 +325,13 @@ const Record = () => {
 
           {/* Tips Section */}
           <div className="mt-8 bg-muted/30 border rounded-lg p-6">
-            <h2 className="text-lg font-medium mb-4">Recording Tips</h2>
+            <h2 className="text-lg font-medium mb-4">{t("recordingTips")}</h2>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Speak clearly and at a consistent pace</li>
-              <li>Find a quiet location without background noise</li>
-              <li>Keep your device's microphone about 6-12 inches from your mouth</li>
-              <li>Avoid touching or moving your device while recording</li>
-              <li>Do a short test recording first to check audio quality</li>
+              <li>{t("recordingTips1")}</li>
+              <li>{t("recordingTips2")}</li>
+              <li>{t("recordingTips3")}</li>
+              <li>{t("recordingTips4")}</li>
+              <li>{t("recordingTips5")}</li>
             </ul>
           </div>
         </div>
