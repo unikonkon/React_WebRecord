@@ -319,7 +319,68 @@ const translations = {
     en: "No additional error information from API.",
     th: "ไม่มีข้อมูลข้อผิดพลาดเพิ่มเติมจาก API",
   },
+  audioCapture: {
+    en: "Audio Capture",
+    th: "บันทึกเสียงจากหน้าจอ",
+  },
 
+  // Audio Capture Page
+  audioCaptureLimitations: {
+    en: "Audio Recording Limitations and Guidelines",
+    th: "ข้อจำกัดและคำแนะนำเกี่ยวกับการบันทึกเสียง"
+  },
+  knownLimitations: {
+    en: "Known Limitations:",
+    th: "ข้อจำกัดที่ควรทราบ:"
+  },
+  browserSupport: {
+    en: "Some browsers (like Safari, Firefox) may not support MediaRecorder for tab or screen audio",
+    th: "เบราว์เซอร์บางตัว (เช่น Safari, Firefox) อาจไม่รองรับ MediaRecorder สำหรับเสียงจากแท็บหรือหน้าจอ"
+  },
+  tabAudioSharing: {
+    en: "Tab audio sharing is limited to specific cases, e.g., Chrome requires selecting 'Share tab audio' when sharing screen",
+    th: "การแชร์เสียงจากแท็บทำได้เฉพาะบางกรณี เช่น Chrome ต้องเลือก 'Share tab audio' ตอนแชร์หน้าจอ"
+  },
+  displayMediaLimitation: {
+    en: "Audio recording from getDisplayMedia only works with tab audio, not microphone",
+    th: "การบันทึกเสียงจาก getDisplayMedia จะใช้ได้เฉพาะเสียงจากแท็บ ไม่ใช่เสียงจากไมโครโฟน"
+  },
+  multiSourceLimitation: {
+    en: "Cannot record from multiple tabs or audio sources simultaneously",
+    th: "ไม่สามารถบันทึกพร้อมกันหลายแท็บหรือหลายแหล่งเสียงได้"
+  },
+  supportedFeatures: {
+    en: "Supported Features:",
+    th: "คุณสมบัติที่รองรับ:"
+  },
+  supportedBrowsers: {
+    en: "Supported browsers: Chrome (recommended), Edge (some versions)",
+    th: "รองรับเบราว์เซอร์: Chrome (แนะนำ), Edge (บางเวอร์ชัน)"
+  },
+  supportedAudioFormat: {
+    en: "Supported audio format: audio/webm (Opus codec)",
+    th: "รองรับรูปแบบเสียง: audio/webm (Opus codec)"
+  },
+  waveformSupport: {
+    en: "Supports real-time waveform visualization using AnalyserNode",
+    th: "รองรับการแสดงภาพ waveform แบบเรียลไทม์จาก AnalyserNode"
+  },
+  screenRecordingSupport: {
+    en: "Can record audio with screen video (but this code only uses audio)",
+    th: "สามารถบันทึกเสียงพร้อมวิดีโอหน้าจอได้ (แต่ในโค้ดนี้จะใช้เสียงเท่านั้น)"
+  },
+  testingRecommendation: {
+    en: "* It's recommended to test before actual use in each browser to prevent errors",
+    th: "* แนะนำให้ทดสอบก่อนใช้งานจริงในแต่ละเบราว์เซอร์เพื่อป้องกันข้อผิดพลาด"
+  },
+  previewRecording: {
+    en: "Preview Recording:",
+    th: "ตัวอย่างการบันทึก:"
+  },
+  recordingInProgress: {
+    en: "Recording in progress",
+    th: "กำลังบันทึก"
+  },
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);

@@ -6,13 +6,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
 const Header = () => {
@@ -56,6 +56,9 @@ const Header = () => {
               </Link>
               <Link to="/record" className="text-sm font-medium hover:text-primary">
                 {t("newRecording")}
+              </Link>
+              <Link to="/audio-capture" className="text-sm font-medium hover:text-primary">
+                {t("audioCapture")}
               </Link>
               <Link to="/profile" className="text-sm font-medium hover:text-primary">
                 {t("userProfile")}
@@ -131,29 +134,29 @@ const Header = () => {
               <nav className="grid gap-4">
                 {currentUser ? (
                   <>
-                    <Link 
-                      to="/dashboard" 
+                    <Link
+                      to="/dashboard"
                       className="text-base font-medium hover:text-primary"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {t("dashboard")}
                     </Link>
-                    <Link 
-                      to="/record" 
+                    <Link
+                      to="/record"
                       className="text-base font-medium hover:text-primary"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {t("newRecording")}
                     </Link>
-                    <Link 
-                      to="/profile" 
+                    <Link
+                      to="/profile"
                       className="text-base font-medium hover:text-primary"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {t("userProfile")}
                     </Link>
-                    <Link 
-                      to="/settings" 
+                    <Link
+                      to="/settings"
                       className="text-base font-medium hover:text-primary"
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -165,8 +168,8 @@ const Header = () => {
                     <Button variant="ghost" size="sm" onClick={toggleTheme} className="justify-start px-0">
                       {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
                     </Button>
-                    <Button 
-                      variant="ghost" 
+                    <Button
+                      variant="ghost"
                       onClick={() => {
                         handleLogout();
                         setMobileMenuOpen(false);
@@ -184,9 +187,9 @@ const Header = () => {
                     <Button variant="ghost" size="sm" onClick={toggleTheme} className="justify-start px-0">
                       {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
                     </Button>
-                    <Button 
-                      asChild 
-                      variant="default" 
+                    <Button
+                      asChild
+                      variant="default"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <Link to="/login">{t("signIn")}</Link>

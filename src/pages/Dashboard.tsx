@@ -38,11 +38,11 @@ const Dashboard = () => {
           setIsLoading(true);
           const userAudios = await getUserAudios(currentUser.uid);
           setRecordings(userAudios);
-          
+
           // Calculate stats
           const totalCount = userAudios.length;
           const totalDuration = userAudios.reduce((sum, audio) => sum + audio.duration, 0);
-          
+
           setStats({
             totalCount,
             totalDuration,
@@ -109,7 +109,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1 container py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
@@ -118,18 +118,18 @@ const Dashboard = () => {
               {t("myRecordings")} ({stats.totalCount})
             </p>
           </div>
-          
+
           <div className="flex gap-4">
             <Button asChild>
               <Link to="/record">
-                <svg 
-                  className="mr-2 size-4" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
+                <svg
+                  className="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                 >
                   <circle cx="12" cy="12" r="10" />
@@ -138,17 +138,39 @@ const Dashboard = () => {
                 {t("newRecording")}
               </Link>
             </Button>
-            
+
+            <Button asChild>
+              <Link to="/audio-capture" className="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 4h16v12H4zM10 17h4M12 7v4m0 0l2-2m-2 2l-2-2"
+                  />
+                </svg>
+
+                <span>{t("audioCapture")}</span>
+              </Link>
+            </Button>
+
+
             <Button variant="outline" asChild>
               <Link to="/upload">
-                <svg 
-                  className="mr-2 size-4" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
+                <svg
+                  className="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -159,6 +181,40 @@ const Dashboard = () => {
               </Link>
             </Button>
 
+          </div>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {t("totalRecordings")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{stats.totalCount}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {t("totalDuration")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">
+                {formatDuration(stats.totalDuration)}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recordings List */}
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold">{t("myRecordings")}</h2>
             {recordings.length > 0 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
@@ -203,39 +259,7 @@ const Dashboard = () => {
               </AlertDialog>
             )}
           </div>
-        </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {t("totalRecordings")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{stats.totalCount}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {t("totalDuration")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">
-                {formatDuration(stats.totalDuration)}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recordings List */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">{t("myRecordings")}</h2>
-          
           {isLoading ? (
             <div className="flex justify-center py-10">
               <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
@@ -254,22 +278,22 @@ const Dashboard = () => {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg font-semibold truncate">{recording.name}</CardTitle>
                   </CardHeader>
-                  
+
                   <CardContent className="pb-2">
                     <div className="flex justify-between items-center text-sm text-muted-foreground mb-4">
                       <span>{formatDuration(recording.duration)}</span>
                       <span>{formatDate(recording.createdAt)}</span>
                     </div>
-                    
+
                     {recording.description && (
                       <p className="text-sm text-muted-foreground line-clamp-2">{recording.description}</p>
                     )}
-                    
+
                     <div className="mt-4">
                       <audio src={recording.fileUrl} controls className="w-full h-10" />
                     </div>
                   </CardContent>
-                  
+
                   <CardFooter>
                     <Button variant="outline" asChild className="w-full">
                       <Link to={`/audio/${recording.id}`}>

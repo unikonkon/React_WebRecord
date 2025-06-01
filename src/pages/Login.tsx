@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  Form, 
-  FormControl, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -92,8 +92,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-lg">
+    <div className="min-h-screen flex flex-col items-center justify-center">
+
+      <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-lg bg-gradient-to-b from-card to-background">
         <div className="flex flex-col items-center space-y-2 text-center">
           <h1 className="text-2xl font-bold">{t("signIn")}</h1>
           <p className="text-muted-foreground">Enter your credentials to access your account</p>

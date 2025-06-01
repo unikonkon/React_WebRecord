@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import SharedAudio from "./pages/SharedAudio";
 import { NotFoundPage, ForbiddenPage } from "./pages/ErrorPage";
+import TabAudioCapture from "./pages/TabAudioCapture";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
                 <Route path="/audio/:id" element={<PrivateRoute><AudioDetail /></PrivateRoute>} />
                 <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
                 <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+                <Route path="/audio-capture" element={<PrivateRoute><TabAudioCapture /></PrivateRoute>} />
                 
                 {/* 404 Route */}
                 <Route path="*" element={<NotFoundPage />} />
