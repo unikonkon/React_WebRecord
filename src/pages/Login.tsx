@@ -20,7 +20,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters",
   }),
@@ -38,7 +38,7 @@ const Login = () => {
   const from = (location.state as { from: string })?.from || "/dashboard";
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize form
+  // Initialize form with translated error messages
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,10 +47,35 @@ const Login = () => {
     },
   });
 
+  // Get Firebase error message
+  const getFirebaseErrorMessage = (error: any) => {
+    switch (error.code) {
+      case 'auth/invalid-credential':
+        return t('invalidCredentials');
+      case 'auth/user-not-found':
+        return t('userNotFound');
+      case 'auth/wrong-password':
+        return t('wrongPassword');
+      case 'auth/invalid-email':
+        return t('invalidEmailFormat');
+      case 'auth/user-disabled':
+        return t('userDisabled');
+      case 'auth/too-many-requests':
+        return t('tooManyRequests');
+      case 'auth/network-request-failed':
+        return t('networkError');
+      default:
+        return t('loginError');
+    }
+  };
+
   // Handle form submission
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
+      // Clear any previous form errors
+      form.clearErrors();
+      
       await login(data.email, data.password);
       toast({
         title: t("success"),
@@ -58,10 +83,20 @@ const Login = () => {
       });
       navigate(from);
     } catch (error: any) {
-      console.error(error);
+      console.error('Login error:', error);
+      
+      const errorMessage = getFirebaseErrorMessage(error);
+      
+      // Set specific field errors for better UX
+      if (error.code === 'auth/invalid-email') {
+        form.setError('email', { message: t('invalidEmailField') });
+      } else if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') {
+        form.setError('password', { message: t('invalidCredentialsField') });
+      }
+      
       toast({
         title: t("error"),
-        description: error.message || "Failed to log in",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -80,10 +115,11 @@ const Login = () => {
       });
       navigate(from);
     } catch (error: any) {
-      console.error(error);
+      console.error('Google sign-in error:', error);
+      const errorMessage = getFirebaseErrorMessage(error);
       toast({
         title: t("error"),
-        description: error.message || "Failed to log in with Google",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -93,7 +129,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-
       <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-lg bg-gradient-to-b from-card to-background">
         <div className="flex flex-col items-center space-y-2 text-center">
           <h1 className="text-2xl font-bold">{t("signIn")}</h1>
@@ -109,7 +144,13 @@ const Login = () => {
                 <FormItem>
                   <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
-                    <Input placeholder="email@example.com" {...field} disabled={isLoading} />
+                    <Input 
+                      placeholder="email@example.com" 
+                      {...field} 
+                      disabled={isLoading}
+                      type="email"
+                      autoComplete="email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -120,14 +161,15 @@ const Login = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  {/* <div className="flex justify-between items-center">
-                    <FormLabel>{t("password")}</FormLabel>
-                    <Link to="/forgot-password" className="text-xs text-primary hover:underline">
-                      {t("forgotPassword")}
-                    </Link>
-                  </div> */}
+                  <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} disabled={isLoading} />
+                    <Input 
+                      type="password" 
+                      {...field} 
+                      disabled={isLoading}
+                      autoComplete="current-password"
+                      placeholder="Enter your password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -58,16 +58,16 @@ const Register = () => {
     setIsLoading(true);
     try {
       const user = await register(data.email, data.password);
-      
-      // Update user profile with displayName
-      await updateUserProfile({ displayName: data.displayName });
+
+      // // Update user profile with displayName
+      // await updateUserProfile({ displayName: data.displayName });
       
       toast({
         title: t("success"),
         description: "Your account has been created",
       });
       
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error: any) {
       console.error(error);
       toast({

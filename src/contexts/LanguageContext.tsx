@@ -381,6 +381,68 @@ const translations = {
     en: "Recording in progress",
     th: "กำลังบันทึก"
   },
+
+  // Authentication Error Messages
+  invalidCredentials: {
+    en: "Invalid email or password. Please check your credentials and try again.",
+    th: "อีเมลหรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบข้อมูลและลองอีกครั้ง"
+  },
+  userNotFound: {
+    en: "No account found with this email address.",
+    th: "ไม่พบบัญชีที่ใช้อีเมลนี้"
+  },
+  wrongPassword: {
+    en: "Incorrect password. Please try again.",
+    th: "รหัสผ่านไม่ถูกต้อง กรุณาลองอีกครั้ง"
+  },
+  invalidEmailFormat: {
+    en: "Invalid email address format.",
+    th: "รูปแบบอีเมลไม่ถูกต้อง"
+  },
+  userDisabled: {
+    en: "This account has been disabled. Please contact support.",
+    th: "บัญชีนี้ถูกปิดการใช้งาน กรุณาติดต่อฝ่ายสนับสนุน"
+  },
+  tooManyRequests: {
+    en: "Too many failed attempts. Please try again later.",
+    th: "พยายามเข้าสู่ระบบล้มเหลวหลายครั้ง กรุณาลองอีกครั้งในภายหลัง"
+  },
+  networkError: {
+    en: "Network error. Please check your internet connection.",
+    th: "ข้อผิดพลาดของเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต"
+  },
+  loginError: {
+    en: "An error occurred during login. Please try again.",
+    th: "เกิดข้อผิดพลาดระหว่างการเข้าสู่ระบบ กรุณาลองอีกครั้ง"
+  },
+  loginSuccess: {
+    en: "Successfully logged in",
+    th: "เข้าสู่ระบบสำเร็จ"
+  },
+  googleLoginSuccess: {
+    en: "Successfully logged in with Google",
+    th: "เข้าสู่ระบบด้วย Google สำเร็จ"
+  },
+  enterValidEmail: {
+    en: "Please enter a valid email address",
+    th: "กรุณากรอกอีเมลที่ถูกต้อง"
+  },
+  passwordMinLength: {
+    en: "Password must be at least 6 characters",
+    th: "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร"
+  },
+  enterPassword: {
+    en: "Enter your password",
+    th: "กรอกรหัสผ่าน"
+  },
+  invalidEmailField: {
+    en: "Invalid email format",
+    th: "รูปแบบอีเมลไม่ถูกต้อง"
+  },
+  invalidCredentialsField: {
+    en: "Invalid credentials",
+    th: "ข้อมูลเข้าสู่ระบบไม่ถูกต้อง"
+  },
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
